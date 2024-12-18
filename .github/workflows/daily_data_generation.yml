@@ -1,11 +1,8 @@
 name: Daily Financial Data Generation
 
 on:
-  # Trigger the workflow daily at 00:00 UTC
   schedule:
     - cron: '0 0 * * *'
-  
-  # Allow manual triggering
   workflow_dispatch:
 
 jobs:
@@ -13,28 +10,30 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    # Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v4
     
-    # Setup Python environment
+    - name: Generate Random Numbers
+      id: random
+      shell: bash
+      run: |
+        echo "customers=$((100 + RANDOM % 50))" >> $GITHUB_OUTPUT
+        echo "transactions=$((200 + RANDOM % 100))" >> $GITHUB_OUTPUT
+    
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
     
-    # Install dependencies
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install faker pandas boto3
     
-    # Generate random number of records between 100-150
     - name: Generate Financial Dataset
       env:
-        # Use GitHub expression to generate random number
-        NUM_CUSTOMERS: ${{ fromJson(format('{0}', github.run_id % 50 + 100)) }}
-        NUM_TRANSACTIONS: ${{ fromJson(format('{0}', github.run_id % 100 + 200)) }}
+        NUM_CUSTOMERS: ${{ steps.random.outputs.customers }}
+        NUM_TRANSACTIONS: ${{ steps.random.outputs.transactions }}
       run: |
         mkdir -p generated_data
         python data_generator.py \
@@ -42,15 +41,13 @@ jobs:
           --num_transactions $NUM_TRANSACTIONS \
           --output_data generated_data
     
-    # Configure AWS Credentials
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1  # Replace with your AWS region
+        aws-region: us-east-1
     
-    # Upload generated files to S3
     - name: Upload to S3
       run: |
         for file in generated_data/*.csv; do
