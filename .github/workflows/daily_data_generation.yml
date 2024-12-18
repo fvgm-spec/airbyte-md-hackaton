@@ -32,9 +32,9 @@ jobs:
     # Generate random number of records between 100-150
     - name: Generate Financial Dataset
       env:
-        # Generate random number between 100-150
-        NUM_CUSTOMERS: ${{ github.run_id % 50 + 100 }}
-        NUM_TRANSACTIONS: ${{ github.run_id % 100 + 200 }}
+        # Use GitHub expression to generate random number
+        NUM_CUSTOMERS: ${{ fromJson(format('{0}', github.run_id % 50 + 100)) }}
+        NUM_TRANSACTIONS: ${{ fromJson(format('{0}', github.run_id % 100 + 200)) }}
       run: |
         mkdir -p generated_data
         python data_generator.py \
