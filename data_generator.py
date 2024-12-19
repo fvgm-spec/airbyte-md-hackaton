@@ -39,10 +39,11 @@ def generate_datasets(num_customers: int, num_transactions: int, output_data: st
         num_transactions (int): Number of transactions to generate
         output_data (str): Directory to save generated CSV files
     """
-    # Ensure output directory exists
-    os.makedirs(output_data, exist_ok=True)
+    # Create date-based directory structure
+    today = date.today().strftime("%Y-%m-%d")
+    output_dir = os.path.join(output_data, today)
+    os.makedirs(output_dir, exist_ok=True)
     
-    # Your existing data generation logic remains the same
     fake = faker.Faker()
     fake.add_provider(FinancialProvider)
     
@@ -89,7 +90,6 @@ def generate_datasets(num_customers: int, num_transactions: int, output_data: st
     # Transactions Table
     transactions = []
     for _ in range(num_transactions):
-        # Randomly select an account
         account_id = random.choice(account_ids)
         
         transaction = {
@@ -105,7 +105,6 @@ def generate_datasets(num_customers: int, num_transactions: int, output_data: st
     # Investment Table
     investments = []
     for account_id in account_ids:
-        # Some accounts might have multiple investments
         num_investments = random.randint(0, 3)
         for _ in range(num_investments):
             investment = {
@@ -122,20 +121,11 @@ def generate_datasets(num_customers: int, num_transactions: int, output_data: st
             }
             investments.append(investment)
     
-    today = date.today().strftime("%Y-%m-%d")
-    
-    # Converting generated datasets to pandas DataFrames
-    customers_df = pd.DataFrame(customers)
-    customers_df.to_csv(os.path.join(output_data, f'{today}_customers.csv'), index=False)
-    
-    accounts_df = pd.DataFrame(accounts)
-    accounts_df.to_csv(os.path.join(output_data, f'{today}_accounts.csv'), index=False)
-    
-    transactions_df = pd.DataFrame(transactions)
-    transactions_df.to_csv(os.path.join(output_data, f'{today}_transactions.csv'), index=False)
-    
-    investments_df = pd.DataFrame(investments)
-    investments_df.to_csv(os.path.join(output_data, f'{today}_investments.csv'), index=False)
+    # Save files with simplified names in date-based directory
+    pd.DataFrame(customers).to_csv(os.path.join(output_dir, 'customers.csv'), index=False)
+    pd.DataFrame(accounts).to_csv(os.path.join(output_dir, 'accounts.csv'), index=False)
+    pd.DataFrame(transactions).to_csv(os.path.join(output_dir, 'transactions.csv'), index=False)
+    pd.DataFrame(investments).to_csv(os.path.join(output_dir, 'investments.csv'), index=False)
     
     return None
 
