@@ -50,6 +50,6 @@ jobs:
     
     - name: Upload to S3
       run: |
-        for file in generated_data/*.csv; do
-          aws s3 cp "$file" "s3://${{ secrets.S3_BUCKET_NAME }}/financial_data/$(date +%Y-%m-%d)/$(basename "$file")"
+        for file in generated_data/*/*.csv; do
+          aws s3 cp "$file" "s3://${{ secrets.S3_BUCKET_NAME }}/financial_data/$(basename $(dirname $file))/$(basename $file)"
         done
