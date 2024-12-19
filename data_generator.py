@@ -30,100 +30,6 @@ class FinancialProvider(BaseProvider):
             'Aggressive', 'Conservative', 'Balanced'
         ])
 
-# def generate_financial_dataset(num_records: int):
-#     """
-#     Generate a comprehensive financial dataset with multiple dimensions.
-    
-#     Returns:
-#     pandas.DataFrame: A DataFrame with detailed financial transaction information
-#     """
-#     fake = faker.Faker()
-#     fake.add_provider(FinancialProvider)
-    
-#     data = []
-#     start_date = fake.date_between(start_date='-2y', end_date='today')
-    
-#     for _ in range(num_records):
-#         # Generate core transaction details
-#         transaction_amount = round(random.uniform(10, 10000), 2)
-#         transaction_date = fake.date_between(start_date=start_date, end_date='today')
-        
-#         record = {
-#             'transaction_id': fake.uuid4(),
-#             'customer_id': fake.uuid4(),
-#             'customer_name': fake.name(),
-#             'customer_email': fake.email(),
-#             'customer_age': random.randint(18, 75),
-            
-#             # Financial specifics
-#             'account_type': random.choice([
-#                 'Checking', 'Savings', 'Investment', 
-#                 'Retirement', 'Business', 'Joint'
-#             ]),
-#             'transaction_type': fake.transaction_type(),
-#             'investment_type': fake.investment_type(),
-#             'risk_profile': fake.risk_profile(),
-            
-#             # Transaction details
-#             'transaction_amount': transaction_amount,
-#             'currency': fake.currency_code(),
-#             'transaction_date': transaction_date,
-            
-#             # Geographic information
-#             'country': fake.country_code(),
-#             'city': fake.city(),
-            
-#             # Additional financial metadata
-#             'annual_income': round(random.uniform(20000, 500000), 2),
-#             'credit_score': random.randint(300, 850),
-#             'interest_rate': round(random.uniform(0.5, 15.0), 2),
-            
-#             # Performance indicators
-#             'return_percentage': round(random.uniform(-10, 20), 2),
-#             'market_sector': random.choice([
-#                 'Technology', 'Finance', 'Healthcare', 
-#                 'Energy', 'Retail', 'Manufacturing'
-#             ])
-#         }
-        
-#         data.append(record)
-    
-#     return pd.DataFrame(data)
-
-# def generate_customers(num_records: int):
-#     """
-#     Generate a relational financial dataset with multiple interconnected tables.
-    
-#     Returns:
-#     Dict of pandas.DataFrames representing different tables in a relational database
-#     """
-#     fake = faker.Faker()
-#     fake.add_provider(FinancialProvider)
-    
-#     # Customer Table
-#     customers = []
-#     customer_ids = []
-#     for _ in range(num_records):
-#         customer_id = str(uuid.uuid4())
-#         customer_ids.append(customer_id)
-        
-#         customer = {
-#             'customer_id': customer_id,
-#             'customer_name': fake.name(),
-#             'customer_email': fake.email(),
-#             'customer_age': random.randint(18, 75),
-#             'annual_income': round(random.uniform(20000, 500000), 2),
-#             'credit_score': random.randint(300, 850),
-#             'country': fake.country_code(),
-#             'city': fake.city()
-#         }
-#         customers.append(customer)
-        
-#     # Convert to DataFrames
-#     customers_df = pd.DataFrame(customers)
-    
-#     return customers_df
-
 def generate_datasets(num_customers: int, num_transactions: int, output_data: str):
     """
     Generate a relational financial dataset with multiple interconnected tables.
@@ -230,30 +136,6 @@ def generate_datasets(num_customers: int, num_transactions: int, output_data: st
     
     investments_df = pd.DataFrame(investments)
     investments_df.to_csv(os.path.join(output_data, f'{today}_investments.csv'), index=False)
-
-    
-    
-    
-    # Converting generated datasets to pandas DataFrames
-    # Saves dataframes to CSV files in  the specified output directory
-    # customers_df = pd.DataFrame(customers)
-    # customers_df.to_csv(f'{output_data}/customers.csv', index=False)
-    # accounts_df = pd.DataFrame(accounts)
-    # accounts_df.to_csv(f'{output_data}/accounts.csv', index=False)
-    # transactions_df = pd.DataFrame(transactions)
-    # transactions_df.to_csv(f'{output_data}/transactions.csv', index=False)
-    # investments_df = pd.DataFrame(investments)
-    # investments_df.to_csv(f'{output_data}/investments.csv', index=False)
-
-    # Print basic information about the datasets
-    print("Customers Dataset:")
-    print(customers_df.info())
-    print("\nAccounts Dataset:")
-    print(accounts_df.info())
-    print("\nTransactions Dataset:")
-    print(transactions_df.info())
-    print("\nInvestments Dataset:")
-    print(investments_df.info())
     
     return None
 
