@@ -104,6 +104,54 @@ generated_data/
 
 ### The Workflow
 
+I wanted to create a standalone workflow that generate each a of datasets required for the project in a daily basis, so GitHub Actions is ideal for this purpose, it can be set as an automated system that can run in a cron based schedule, and finally store the generated daily data in AWS S3.
+
+#### System Overview
+
+* Daily generation of financial datasets (customers, accounts, transactions, investments)
+* Random variation in data volume
+* Automatic upload to AWS S3
+* Manual trigger option via `workflow_dispatch`
+
+
+#### Features
+
+* Monitoring/Maintenance: Built-in logging, execution history, error notifications, easy workflow modifications via email.
+
+* Infrastructure Benefits: Free for public repositories, no need for dedicated servers, built-in secret management.
+
+* Automation: Scheduled execution `(cron: '0 0 * * *')`, manual triggers via `workflow_dispatch`, environment setup automation, dependency management.
+
+#### Synthetic data genaration action
+
+In the case of this project the [workflow](https://github.com/fvgm-spec/airbyte-md-hackaton/blob/main/.github/workflows/daily_data_generation.yml#L33) performs the installation of basic dependencies on every run, then exewcutes the `data_generator.py` script directly from the GitHub repo, and as a last step, automatically stores te daily genarated data in a previously specified S3 bucket, that will be consumed by Airbyte during the Data Integration process.
+
+```yaml
+...
+    - name: Generate Financial Dataset
+      env:
+        NUM_CUSTOMERS: ${{ steps.random.outputs.customers }}
+        NUM_TRANSACTIONS: ${{ steps.random.outputs.transactions }}
+      run: |
+        mkdir -p generated_data
+        python data_generator.py \
+          --num_customers $NUM_CUSTOMERS \
+          --num_transactions $NUM_TRANSACTIONS \
+          --output_data generated_data
+    
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    
+    - name: Upload to S3
+      run: |
+        for file in generated_data/*/*.csv; do
+          aws s3 cp "$file" "s3://${{ secrets.S3_BUCKET_NAME }}/financial_data/$(basename $(dirname $file))/$(basename $file)"
+        done
+```
 
 ### Airbyte Data Integration
 
