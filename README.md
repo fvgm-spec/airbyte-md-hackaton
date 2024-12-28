@@ -1,13 +1,49 @@
 ## Complete ETL pipeline using Airbyte Mother Duck connector
 
-### Financial Data Generator
+### The Dataset
 
-A Python script that generates realistic financial datasets for testing and development purposes. The generator creates interconnected CSV files containing `customers` information, `accounts`, `transactions`, and `investments`.
+The dataset used for this project is a synthetic one generated using the versatile Python [Faker](https://pypi.org/project/Faker/) module, it basically sets a `FinancialProvider` class to generate multiple *investment_types*, *transaction_types* and *risk_profiles* for further analysis by the end users in the UI that will be implemented using [Evidence](https://evidence.dev/). 
+
+Bellow is a sample of the [data_generator.py](https://github.com/fvgm-spec/airbyte-md-hackaton/blob/main/data_generator.py) script that generates synthetic financial datasets. The generator creates interconnected CSV files containing `customers` information, `accounts`, `transactions`, and `investments`.:
+
+```python
+import faker
+from faker.providers import BaseProvider
+import pandas as pd
+import random
+import uuid
+import argparse
+import os
+from datetime import date
+
+class FinancialProvider(BaseProvider):
+    def investment_type(self):
+        """Generate a realistic investment type."""
+        return random.choice([
+            'Stocks', 'Bonds', 'Mutual Funds', 'ETFs', 
+            'Cryptocurrency', 'Real Estate Investment Trust', 
+            'Commodities', 'Government Bonds'
+        ])
+    
+    def transaction_type(self):
+        """Generate a transaction type."""
+        return random.choice([
+            'Deposit', 'Withdrawal', 'Transfer', 
+            'Purchase', 'Sale', 'Dividend Reinvestment'
+        ])
+    
+    def risk_profile(self):
+        """Generate an investment risk profile."""
+        return random.choice([
+            'Low Risk', 'Medium Risk', 'High Risk', 
+            'Aggressive', 'Conservative', 'Balanced'
+        ])
+```
 
 #### Features
 
-- Generates four related datasets:
-  - Customers (demographics, income, credit score)
+- The script generates 4 related datasets:
+  - Customers (including demographics, income, credit score)
   - Accounts (types, risk profiles)
   - Transactions (deposits, withdrawals, purchases)
   - Investments (types, amounts, sectors)
@@ -35,7 +71,7 @@ python generator.py --num_customers 100 --num_transactions 200 --output_data gen
 
 #### Output Structure
 
-```
+```bash
 generated_data/
 └── YYYY-MM-DD/
     ├── customers.csv
@@ -65,7 +101,16 @@ generated_data/
 - risk_profile
 - opening_date
 
-### Resources
-* [MotherDuck Official site](https://motherduck.com/docs/getting-started/)
-* [MotherDuck Airbyte connector](https://docs.airbyte.com/integrations/destinations/motherduck)
-* [GitHub repo](https://github.com/airbytehq/airbyte/tree/master/airbyte-integrations/connectors/destination-motherduck)
+
+### The Workflow
+
+
+### Airbyte Data Integration
+
+
+### The Datawarehouse
+
+
+### The UI
+
+
