@@ -157,15 +157,15 @@ In the case of this project the [workflow](https://github.com/fvgm-spec/airbyte-
 
 Once I have implemented the data extraction backend infrastructure, is time to set the Airbyte connections. It basically sets 4 data streams for each of the datasets stored in the S3 bucket:
 
-![s3_data](../img/s3_data.png)
+![s3_data](./img/s3_data.png)
 
 Each single stream syncs the data using the Aibyte S3 source connector from the S3 bucket using the search pattern `financial-data1215/financial_data/YYYY-MM-DD/` to find the `customers`, `accounts`, `transactions`, and `investments` CSV files to be replicated to MotherDuck destination:
 
-![s3_source](../img/s3_source.png)
+![s3_source](./img/s3_source.png)
 
 For the MotherDuck Airbyte connector, there are 4 active connections for different financial datasets: 
 
-![airbyte_connections](../img/airbyte_connections.png)
+![airbyte_connections](./img/airbyte_connections.png)
 
 
 
