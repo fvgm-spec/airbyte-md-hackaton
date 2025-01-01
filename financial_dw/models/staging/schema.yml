@@ -1,0 +1,10 @@
+version: 2
+sources:
+  - name: main
+    database: my_db
+    schema: main
+    tables:
+      - name: customerss3
+      - name: accountss3
+      - name: transactionss3
+      - name: investmentss3

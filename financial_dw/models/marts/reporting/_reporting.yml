@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: investment_analysis
+    description: "Investment portfolio analysis by sector and customer"
+    columns:
+      - name: customer_id
+        description: "Reference to customer profiles"
+        tests:
+          - relationships:
+              to: ref('customer_profile')
+              field: customer_id
+      - name: market_sector
+        description: "Investment market sector"
+      - name: total_invested
+        description: "Total investment amount"
+        tests:
+          - not_null
+          - positive_value
+      - name: avg_return
+        description: "Average return percentage"

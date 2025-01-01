@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: customer_profile
+    description: "Core customer dimension table with enriched profile data"
+    columns:
+      - name: customer_id
+        description: "Primary key for customer profiles"
+        tests:
+          - unique
+          - not_null
+      - name: total_accounts
+        description: "Total number of accounts owned by customer"
+        tests:
+          - not_null
+          - positive_value
+      - name: investment_accounts
+        description: "Number of investment accounts"
+      - name: risk_profile
+        description: "Aggregated risk profile based on accounts"
+        tests:
+          - accepted_values:
+              values: ['Low Risk', 'Medium Risk', 'High Risk', 'Aggressive', 'Conservative', 'Balanced']
