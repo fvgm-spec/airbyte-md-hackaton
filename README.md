@@ -159,7 +159,7 @@ Once I have implemented the data extraction backend infrastructure, is time to s
 
 ![s3_data](./img/s3_data.png)
 
-Each single stream syncs the data using the Aibyte S3 source connector from the S3 bucket using the search pattern `financial-data1215/financial_data/YYYY-MM-DD/` to find the `customers`, `accounts`, `transactions`, and `investments` CSV files to be replicated to MotherDuck destination:
+Each single stream syncs the data using the Aibyte S3 source connector from the S3 bucket according to the search pattern `financial-data1215/financial_data/YYYY-MM-DD/`, this way all folders identified with the corresponding date by each folder will be integrated from the `customers`, `accounts`, `transactions`, and `investments` CSV files to be replicated to MotherDuck destination:
 
 ![s3_source](./img/s3_source.png)
 
