@@ -173,6 +173,10 @@ The search pattern set in the MotherDuck connector settings in Airbyte compiles 
 
 As defined in [MotherDuck Website](https://motherduck.com/docs/concepts/data-warehousing/):
 
+> Dorothy followed her through many of the beautiful rooms in her castle.
+>
+> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+
 ```markdown
 MotherDuck is a cloud-native data warehouse, built on top of DuckDB, a fast in-process analytical database. It inherits some features from DuckDB that present opportunities to think differently about data warehousing methods in order to achieve high levels of performance and simplify the experience.
 ```
