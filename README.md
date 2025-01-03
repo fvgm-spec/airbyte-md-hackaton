@@ -6,6 +6,12 @@ The dataset used for this project is a synthetic one generated using the versati
 
 Bellow is a sample of the [data_generator.py](https://github.com/fvgm-spec/airbyte-md-hackaton/blob/main/data_generator.py) script that generates synthetic financial datasets. The generator creates interconnected CSV files containing `customers` information, `accounts`, `transactions`, and `investments`.:
 
+<p>
+<div class="column">
+    <img src="./img/faker.png" style="height: 35rem"/>
+  </div>
+</p>
+
 ```python
 import faker
 from faker.providers import BaseProvider
@@ -39,11 +45,6 @@ class FinancialProvider(BaseProvider):
             'Aggressive', 'Conservative', 'Balanced'
         ])
 ```
-<p>
-<div class="column">
-    <img src="./img/faker.png" style="height: 25rem"/>
-  </div>
-</p>
 
 #### Features
 
