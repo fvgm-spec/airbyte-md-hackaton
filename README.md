@@ -39,6 +39,7 @@ class FinancialProvider(BaseProvider):
             'Aggressive', 'Conservative', 'Balanced'
         ])
 ```
+![faker](./img/kaker.png)
 
 #### Features
 
