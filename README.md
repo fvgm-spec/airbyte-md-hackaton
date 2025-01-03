@@ -8,7 +8,7 @@ Bellow is a sample of the [data_generator.py](https://github.com/fvgm-spec/airby
 
 <p>
 <div class="column">
-    <img src="./img/faker.png" style="height: 35rem"/>
+    <img src="./img/faker.png" style="height: 12rem"/>
   </div>
 </p>
 
