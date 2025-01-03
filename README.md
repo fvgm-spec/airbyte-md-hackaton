@@ -39,7 +39,11 @@ class FinancialProvider(BaseProvider):
             'Aggressive', 'Conservative', 'Balanced'
         ])
 ```
-![faker](./img/kaker.png)
+<p>
+<div class="column">
+    <img src="./img/faker.png" style="height: 25rem"/>
+  </div>
+</p>
 
 #### Features
 
