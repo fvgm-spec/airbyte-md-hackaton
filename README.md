@@ -112,6 +112,12 @@ generated_data/
 
 I wanted to create a standalone workflow that generate each a of datasets required for the project in a daily basis, so GitHub Actions is ideal for this purpose, it can be set as an automated system that can run in a cron based schedule, and finally store the generated daily data in AWS S3.
 
+<p>
+<div class="column">
+    <img src="./img/github_actions.png" style="height: 16rem"/>
+  </div>
+</p>
+
 #### System Overview
 
 * Daily generation of financial datasets (customers, accounts, transactions, investments)
@@ -177,6 +183,12 @@ The search pattern set in the MotherDuck connector settings in Airbyte compiles 
 
 ### The Data Warehouse
 
+<p>
+<div class="column">
+    <img src="./img/md.jpeg" style="height: 13rem"/>
+  </div>
+</p>
+
 As defined in [MotherDuck Website](https://motherduck.com/docs/concepts/data-warehousing/):
 
 > MotherDuck is a cloud-native data warehouse, built on top of DuckDB, a fast in-process analytical database. It inherits some features from DuckDB that present opportunities to think differently about data warehousing methods in order to achieve high levels of performance and simplify the experience.
@@ -199,5 +211,11 @@ I also created some [dbt models](https://github.com/fvgm-spec/airbyte-md-hackato
 
 
 ### The UI
+
+<p>
+<div class="column">
+    <img src="./img/evidence.png" style="height: 16rem"/>
+  </div>
+</p>
 
 The UI where the users will be able to interact with the data is developed using the open-source BI tool Evidence
