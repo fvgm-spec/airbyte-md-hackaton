@@ -1,0 +1,1 @@
+select * from my_db.main.customerss3
