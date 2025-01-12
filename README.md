@@ -134,6 +134,8 @@ I wanted to create a standalone workflow that generate each a of datasets requir
 
 * Automation: Scheduled execution `(cron: '0 0 * * *')`, manual triggers via `workflow_dispatch`, environment setup automation, dependency management.
 
+
+
 #### Synthetic data genaration action
 
 In the case of this project the [workflow](https://github.com/fvgm-spec/airbyte-md-hackaton/blob/main/.github/workflows/daily_data_generation.yml#L33) performs the installation of basic dependencies on every run, then exewcutes the `data_generator.py` script directly from the GitHub repo, and as a last step, automatically stores te daily genarated data in a previously specified S3 bucket, that will be consumed by Airbyte during the Data Integration process.
