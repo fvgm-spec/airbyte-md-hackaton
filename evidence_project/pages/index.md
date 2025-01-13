@@ -1,5 +1,5 @@
 ---
-title: Welcome to Evidence
+title: Finantial Data Generator
 ---
 
 <Details title='How to edit this page'>
@@ -7,50 +7,18 @@ title: Welcome to Evidence
   This page can be found in your project at `/pages/index.md`. Make a change to the markdown file and save it to see the change take effect in your browser.
 </Details>
 
-```sql categories
-  select
-      category
-  from needful_things.orders
-  group by category
+```sql customer_ages
+  SELECT
+    'Summary Stats' as statistic,
+    COUNT(*) as count,
+    
+    -- customer_age statistics
+    ROUND(AVG(customer_age::DOUBLE), 2) as age_mean,
+    ROUND(STDDEV(customer_age::DOUBLE), 2) as age_std,
+    MIN(customer_age::DOUBLE) as age_min,
+    ROUND(PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY customer_age::DOUBLE), 2) as age_25,
+    ROUND(PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY customer_age::DOUBLE), 2) as age_50,
+    ROUND(PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY customer_age::DOUBLE), 2) as age_75,
+    MAX(customer_age) as age_max
+FROM motherduck.customers;
 ```
-
-<Dropdown data={categories} name=category value=category>
-    <DropdownOption value="%" valueLabel="All Categories"/>
-</Dropdown>
-
-<Dropdown name=year>
-    <DropdownOption value=% valueLabel="All Years"/>
-    <DropdownOption value=2019/>
-    <DropdownOption value=2020/>
-    <DropdownOption value=2021/>
-</Dropdown>
-
-```sql orders_by_category
-  select 
-      date_trunc('month', order_datetime) as month,
-      sum(sales) as sales_usd,
-      category
-  from needful_things.orders
-  where category like '${inputs.category.value}'
-  and date_part('year', order_datetime) like '${inputs.year.value}'
-  group by all
-  order by sales_usd desc
-```
-
-<BarChart
-    data={orders_by_category}
-    title="Sales by Month, {inputs.category.label}"
-    x=month
-    y=sales_usd
-    series=category
-/>
-
-## What's Next?
-- [Connect your data sources](settings)
-- Edit/add markdown files in the `pages` folder
-- Deploy your project with [Evidence Cloud](https://evidence.dev/cloud)
-
-## Get Support
-- Message us on [Slack](https://slack.evidence.dev/)
-- Read the [Docs](https://docs.evidence.dev/)
-- Open an issue on [Github](https://github.com/evidence-dev/evidence)
