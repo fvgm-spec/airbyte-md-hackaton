@@ -351,7 +351,7 @@ Enjoy and keep on Airbyte...
 
 <p>
 <div class="column">
-    <img src="./img/airbyte2.jpeg" style="height: 13rem"/>
+    <img src="./img/airbyte2.png" style="height: 13rem"/>
   </div>
 </p>
 
