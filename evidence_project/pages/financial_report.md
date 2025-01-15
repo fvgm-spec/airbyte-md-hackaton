@@ -31,7 +31,7 @@ FROM motherduck.customers;
   This analysis shows how risk profiles correlate with customer demographics and investment behavior.
 </Details>
 
-```sql risk_profile_ditribution
+```sql risk_profile_analysis
 SELECT 
     a.risk_profile,
     COUNT(DISTINCT a.customer_id) as customer_count,
@@ -45,6 +45,43 @@ LEFT JOIN motherduck.investments i ON a.account_id = i.account_id
 GROUP BY a.risk_profile
 ORDER BY customer_count DESC;
 ```
+
+<BarChart 
+    data={risk_profile_analysis} 
+    x="risk_profile" 
+    y="avg_investment_amount"
+    title="Avg Investment Amount by Risk Profile"
+/>
+
+<ScatterPlot  
+    data={risk_profile_analysis} 
+    x="avg_credit_score" 
+    y="avg_investment_amount"
+    title="Risk Profile: Credit Score vs Investment Amount"
+/>
+
+```sql customer_demographics 
+SELECT 
+    CASE 
+        WHEN CAST(customer_age AS INTEGER) < 30 THEN 'Under 30'
+        WHEN CAST(customer_age AS INTEGER) BETWEEN 30 AND 50 THEN '30-50'
+        ELSE 'Over 50'
+    END as age_group,
+    COUNT(*) as customer_count,
+    ROUND(AVG(CAST(credit_score AS DOUBLE)), 2) as avg_credit_score,
+    ROUND(AVG(CAST(annual_income AS DOUBLE)), 2) as avg_annual_income
+FROM motherduck.customers
+GROUP BY age_group
+ORDER BY age_group;
+```
+
+<BarChart 
+    data={customer_demographics}
+    x="age_group"
+    y={["avg_credit_score", "avg_annual_income"]}
+    title="Age Group Financial Metrics"
+/>
+
 
 <Details title='Investment Portfolio Analysis'>
 
@@ -75,30 +112,37 @@ FROM portfolio_stats
 ORDER BY total_investment DESC;
 ```
 
-<Details title='Transaction Patterns Over Time'>
+<BarChart
+    data={investment_portfolio_analysis}
+    x="market_sector"
+    y="avg_interest_rate"
+    series="investment_type"
+    title="Average Interest Rates by Sector"
+/>
 
-  This analysis reveals transaction patterns and trends over time, helping identify seasonal patterns or changing customer behaviors.
-</Details>
+<DataTable 
+    data={investment_portfolio_analysis}
+    search=true
+    pagination=true
+/>
+
 
 ```sql transactions_pattern_over_time
 SELECT 
-    DATE_TRUNC('month', transaction_date) as month,
+    DATE_TRUNC('month', transaction_date::DATE) as month,
     transaction_type,
     COUNT(*) as transaction_count,
     COUNT(DISTINCT account_id) as unique_accounts,
     ROUND(AVG(transaction_amount::DOUBLE), 2) as avg_amount,
     ROUND(SUM(transaction_amount::DOUBLE), 2) as total_amount
+    --ROUND(AVG(CAST(transaction_amount AS DOUBLE)), 2) as avg_amount,
+    --ROUND(SUM(CAST(transaction_amount AS DOUBLE)), 2) as total_amount
 FROM motherduck.transactions
-GROUP BY DATE_TRUNC('month', transaction_date), transaction_type
+GROUP BY 1, 2
 ORDER BY month DESC, transaction_count DESC;
 ```
 
-<Details title='High-Value Customer Insights'>
-
-  This query identifies and analyzes your highest-value customers based on their total financial engagement.
-</Details>
-
-```sql transactions_pattern_over_time
+```sql high_value_customer_insights
 WITH customer_metrics AS (
     SELECT 
         c.customer_id,
@@ -129,4 +173,3 @@ WHERE (total_investments + total_transaction_volume) > 0
 ORDER BY total_value DESC
 LIMIT 100;
 ```
-
