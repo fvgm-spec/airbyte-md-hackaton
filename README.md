@@ -335,5 +335,23 @@ Open your browser and navigate to http://localhost:3000
 * Transaction type patterns
 * Currency distribution
 
+#### How the application works?
 
-Watch a first video here >> https://www.youtube.com/watch?v=BlTTMvABxoo&ab_channel=FelixVidalGutierrezMorales
+> In this first video you will see how the pipeline is done from the beginning (GitHub repo), then how the Python scripts are triggered (GitHub Actions). You will also learn how the pipeline continues working in Airbyte, how the sources and destinations are configured, and then in MotherDuck Data Warehouse, how can the resulting tables be queried. 
+
+Check that out in this first video >> [How the pipeline works?](https://youtu.be/BlTTMvABxoo)
+
+> In this second video shows how are the evidence settings done, and also how the sources are configured. Lastly it will show how keep the Evidence project up and running, it will only take a few minutes.
+
+Evdence project up and running... >> [Run your Evidence project](https://youtu.be/84XlCzqpKi0)
+
+> In his last video you will finally see how the magic happens >> [Start Evidence project](https://youtu.be/-166gwMvyvs)
+
+Enjoy and keep on Airbyte...
+
+<p>
+<div class="column">
+    <img src="./img/airbyte2.jpeg" style="height: 13rem"/>
+  </div>
+</p>
+
