@@ -336,4 +336,4 @@ Open your browser and navigate to http://localhost:3000
 * Currency distribution
 
 
-[![Watch the video](https://www.youtube.com/watch?v=BlTTMvABxoo&ab_channel=FelixVidalGutierrezMorales)]
+Watch a first video here >> https://www.youtube.com/watch?v=BlTTMvABxoo&ab_channel=FelixVidalGutierrezMorales
