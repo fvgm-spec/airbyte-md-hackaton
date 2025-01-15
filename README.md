@@ -234,7 +234,7 @@ This project implements an end-to-end data pipeline that combines Airbyte connec
 
 <p>
 <div class="column">
-    <img src="./img/architecture.png" style="height: 16rem"/>
+    <img src="./img/architecture.png" style="height: 30rem"/>
   </div>
 </p>
 
