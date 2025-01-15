@@ -336,4 +336,4 @@ Open your browser and navigate to http://localhost:3000
 * Currency distribution
 
 
-[![Watch the video](https://airbyte-hackathon-assets.s3.us-east-1.amazonaws.com/runing_etl_pipeline.mp4)]
+[![Watch the video](https://www.youtube.com/watch?v=BlTTMvABxoo&ab_channel=FelixVidalGutierrezMorales)]
